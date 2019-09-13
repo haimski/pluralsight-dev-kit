@@ -1,6 +1,11 @@
-const express = require('express');
-const path = require('path');
-const open = require('open');
+// es6
+import express from 'express';
+import path from 'path';
+import open from 'open';
+// es5
+//const express = require('express');
+//const path = require('path');
+//const open = require('open');
 
 const port = 1234;
 const app = express();
