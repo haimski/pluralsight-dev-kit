@@ -2,19 +2,15 @@
 import express from 'express';
 import path from 'path';
 import open from 'open';
-import webpack from 'webpack';
-import config from '../webpack.config.dev';
+import compression from 'compression'; // gzip
 
 /* eslint-disable no-console */
 
 const port = 1234;
 const app = express();
-const compiler = webpack(config);
 
-app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath
-}));
+app.use(compression());
+app.use(express.static('dist'));  // configure atatic html from dist
 
 app.get('/users', function(req, res){
   // Hard coding for simplicity. pretend this is a real data base
@@ -26,7 +22,7 @@ app.get('/users', function(req, res){
 });
 
 app.get('/', function(req, res){
-  res.sendFile(path.join(__dirname, '../src/index.html'));
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
 app.listen(port, function(err){
